@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <meta charset="utf-8"/>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+		
+    	<title>Makey Workshop</title>
+		<link rel="icon" href="assets/makey/images/makey.png" type="image/jpg" sizes="16x16" />
+		<meta name="theme-color" content="#053340" />
+
+        <style>
+        	body{
+        	    background-color: #053340;
+        	}
+
+	        	.virtualBtn{
+	        		width: 100px;
+	        		height: 30px;
+	        		color: white;
+	        		background-color: darkgreen;
+	        		border-radius: 7px;
+	        	}
+	        	
+	        	img{
+        		  -webkit-transform: scale(0.5); /* Saf3.1+, Chrome */
+			     -moz-transform: scale(0.5); /* FF3.5+ */
+			      -ms-transform: scale(0.5); /* IE9 */
+			       -o-transform: scale(0.5); /* Opera 10.5+ */
+			          transform: scale(0.5);
+			          
+			      background-color: darkblue;
+	        	}
+	
+		        aside{
+		        	margin-bottom: 5px;
+		        }
+		        
+		        input[type = 'file']{
+					width: 0.1px;
+					height: 0.1px;
+					opacity: 0;
+					overflow: hidden;
+					position: absolute;
+					z-index: -1;
+		        }
+
+		        .clearBtns{
+		        	margin-left: 15px;
+		        	width: 50px;
+		        	height: 40px;
+	        		color: white;
+	        		background-color: maroon;
+	        		border-radius: 4px;
+		        }
+		        
+		        .fileName{
+		        	color:white;
+		        	margin-left: 30px;
+		        }
+		        
+		        label{
+					background-repeat: no-repeat;
+					background-size: contain;
+					width: 50px;
+					height: 40px;
+					float: left;	
+		        }
+		        
+					label[for="choose_up"] {
+						background-image:url("assets/makey/images/up.png");
+					}
+					label[for="choose_down"] {
+						background-image:url("assets/makey/images/down.png");
+					}
+					label[for="choose_right"] {
+						background-image:url("assets/makey/images/right.png");
+					}
+					label[for="choose_left"] {
+						background-image:url("assets/makey/images/left.png");
+					}
+					label[for="choose_space"] {
+						background-image:url("assets/makey/images/space.png");
+					}
+					label[for="choose_w"] {
+						background-image:url("assets/makey/images/click.png");
+					}
+        </style>	
+        <script type="text/javascript" src="cordova.js"></script>			        
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/makey/phaser.min.js"></script>
+        <script type="text/javascript" src="js/makey/boot.js"></script>
+        <script type="text/javascript" src="js/makey/preloader.js"></script>
+        <script type="text/javascript" src="js/makey/main.js"></script>
+        
+    </head>
+    <body>
+    	<div id="game"></div>
+    	<div id="noPhaser">
+	    	<div>
+	    		<aside>
+	    			<label for="choose_up"></label>
+					<input type="file" id="choose_up" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_up" value="clear" class='clearBtns'/>
+					<audio id="audio_up"></audio>
+					<span class="fileName" id="name_up">No file selected</span>
+				</aside>
+		    	
+		    	<aside>
+		    		<label for="choose_down"></label>
+					<input type="file" id="choose_down" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_down" value="clear" class='clearBtns'/>
+					<audio id="audio_down"></audio>
+					<span class="fileName" id="name_down">No file selected</span>
+				</aside>
+				
+		    	<aside>
+			    	<label for="choose_right"></label>
+					<input type="file" id="choose_right" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_right" value="clear" class='clearBtns'/>
+					<audio id="audio_right"></audio>
+					<span class="fileName" id="name_right">No file selected</span>
+				</aside>
+				
+				<aside>
+			    	<label for="choose_left"></label>
+					<input type="file" id="choose_left" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_left" value="clear" class='clearBtns'/>
+					<audio id="audio_left"></audio>
+					<span class="fileName" id="name_left">No file selected</span>
+				</aside>
+				
+		    	<aside>
+			    	<label for="choose_space"></label>
+					<input type="file" id="choose_space" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_space" value="clear" class='clearBtns'/>
+					<audio id="audio_space"></audio>
+					<span class="fileName" id="name_space">No file selected</span>
+		    	</aside>
+		    	
+		    	<aside>
+			    	<label for="choose_w"></label>
+					<input type="file" id="choose_w" accept="audio/*" onchange="external_file(this, this.files)" />
+					<input type="button" id="clear_w" value="clear" class='clearBtns'/>
+					<audio id="audio_w"></audio>
+					<span class="fileName" id="name_w">No file selected</span>
+				</aside>
+			</div>
+			<br/>
+			<div>
+				<input class='virtualBtn' type='button' value='Up' onclick="playSound(0)">
+				<input class='virtualBtn'type='button' value='Down' onclick="playSound(1)">
+				<input class='virtualBtn' type='button' value='Right' onclick="playSound(2)">
+				<input class='virtualBtn'type='button' value='Left' onclick="playSound(3)">
+				<input class='virtualBtn' type='button' value='Space' onclick="playSound(4)">
+				<input class='virtualBtn' type='button' value='Click' onclick="playSound(5)">
+			</div>
+		</div>
+	
+    </body>
+</html>
